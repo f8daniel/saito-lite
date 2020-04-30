@@ -51,6 +51,7 @@ body {
   float:left;
   #width: 100px;
   #min-width:10%;
+  border: 2px solid black;
 }
 
 .slot {
