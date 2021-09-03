@@ -142,7 +142,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="saito_wallet.js.html">saito/wallet.js</a>, <a href="saito_wallet.js.html#line12">line 12</a>
+        <a href="saito_wallet.js.html">saito/wallet.js</a>, <a href="saito_wallet.js.html#line14">line 14</a>
     </li></ul></dd>
     
 
@@ -250,7 +250,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="saito_wallet.js.html">saito/wallet.js</a>, <a href="saito_wallet.js.html#line832">line 832</a>
+        <a href="saito_wallet.js.html">saito/wallet.js</a>, <a href="saito_wallet.js.html#line875">line 875</a>
     </li></ul></dd>
     
 
@@ -338,7 +338,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="saito_wallet.js.html">saito/wallet.js</a>, <a href="saito_wallet.js.html#line783">line 783</a>
+        <a href="saito_wallet.js.html">saito/wallet.js</a>, <a href="saito_wallet.js.html#line826">line 826</a>
     </li></ul></dd>
     
 
@@ -493,7 +493,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="saito_wallet.js.html">saito/wallet.js</a>, <a href="saito_wallet.js.html#line229">line 229</a>
+        <a href="saito_wallet.js.html">saito/wallet.js</a>, <a href="saito_wallet.js.html#line253">line 253</a>
     </li></ul></dd>
     
 
@@ -654,7 +654,7 @@ in their local storage and can be retrieved by other modules here for any purpos
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="saito_wallet.js.html">saito/wallet.js</a>, <a href="saito_wallet.js.html#line1406">line 1406</a>
+        <a href="saito_wallet.js.html">saito/wallet.js</a>, <a href="saito_wallet.js.html#line1453">line 1453</a>
     </li></ul></dd>
     
 
@@ -712,7 +712,7 @@ in their local storage and can be retrieved by other modules here for any purpos
     
 
     
-    <h4 class="name" id="receivePayment"><span class="type-signature"></span>receivePayment<span class="signature">(senders, receivers, amounts, timestamp, mycallback, ticker, tries, pollWaitTime)</span><span class="type-signature"> &rarr; {Array}</span></h4>
+    <h4 class="name" id="receivePayment"><span class="type-signature">(async) </span>receivePayment<span class="signature">(senders, receivers, amounts, timestamp, mycallback, ticker, tries, pollWaitTime)</span><span class="type-signature"> &rarr; {Array}</span></h4>
     
 
     
@@ -942,7 +942,7 @@ in their local storage and can be retrieved by other modules here for any purpos
                 </td>
             
 
-            <td class="description last">(default: 36) Number of tries to query the underlying crypto API before giving up</td>
+            <td class="description last">(default: 36) Number of tries to query the underlying crypto API before giving up. Sending -1 will cause infinite retries.</td>
         </tr>
 
     
@@ -1012,7 +1012,7 @@ in their local storage and can be retrieved by other modules here for any purpos
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="saito_wallet.js.html">saito/wallet.js</a>, <a href="saito_wallet.js.html#line1493">line 1493</a>
+        <a href="saito_wallet.js.html">saito/wallet.js</a>, <a href="saito_wallet.js.html#line1549">line 1549</a>
     </li></ul></dd>
     
 
@@ -1123,7 +1123,95 @@ the new wallet to local storage.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="saito_wallet.js.html">saito/wallet.js</a>, <a href="saito_wallet.js.html#line853">line 853</a>
+        <a href="saito_wallet.js.html">saito/wallet.js</a>, <a href="saito_wallet.js.html#line973">line 973</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="restoreWallet"><span class="type-signature">(async) </span>restoreWallet<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Restores the user's wallet from uploaded JSON
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="saito_wallet.js.html">saito/wallet.js</a>, <a href="saito_wallet.js.html#line895">line 895</a>
     </li></ul></dd>
     
 
@@ -1212,7 +1300,7 @@ AbstractCryptoModules represent various cryptocurrencies like DOT, Kusama, ETH, 
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="saito_wallet.js.html">saito/wallet.js</a>, <a href="saito_wallet.js.html#line1332">line 1332</a>
+        <a href="saito_wallet.js.html">saito/wallet.js</a>, <a href="saito_wallet.js.html#line1369">line 1369</a>
     </li></ul></dd>
     
 
@@ -1371,7 +1459,7 @@ AbstractCryptoModules represent various cryptocurrencies like DOT, Kusama, ETH, 
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="saito_wallet.js.html">saito/wallet.js</a>, <a href="saito_wallet.js.html#line1343">line 1343</a>
+        <a href="saito_wallet.js.html">saito/wallet.js</a>, <a href="saito_wallet.js.html#line1380">line 1380</a>
     </li></ul></dd>
     
 
@@ -1478,7 +1566,7 @@ in their local storage and can be retrieved by other modules here for any purpos
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="saito_wallet.js.html">saito/wallet.js</a>, <a href="saito_wallet.js.html#line1375">line 1375</a>
+        <a href="saito_wallet.js.html">saito/wallet.js</a>, <a href="saito_wallet.js.html#line1422">line 1422</a>
     </li></ul></dd>
     
 
@@ -1695,7 +1783,7 @@ in their local storage and can be retrieved by other modules here for any purpos
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="saito_wallet.js.html">saito/wallet.js</a>, <a href="saito_wallet.js.html#line1417">line 1417</a>
+        <a href="saito_wallet.js.html">saito/wallet.js</a>, <a href="saito_wallet.js.html#line1464">line 1464</a>
     </li></ul></dd>
     
 
@@ -1805,7 +1893,7 @@ in their local storage and can be retrieved by other modules here for any purpos
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="saito_wallet.js.html">saito/wallet.js</a>, <a href="saito_wallet.js.html#line818">line 818</a>
+        <a href="saito_wallet.js.html">saito/wallet.js</a>, <a href="saito_wallet.js.html#line861">line 861</a>
     </li></ul></dd>
     
 
@@ -1911,7 +1999,7 @@ in their local storage and can be retrieved by other modules here for any purpos
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="saito_wallet.js.html">saito/wallet.js</a>, <a href="saito_wallet.js.html#line825">line 825</a>
+        <a href="saito_wallet.js.html">saito/wallet.js</a>, <a href="saito_wallet.js.html#line868">line 868</a>
     </li></ul></dd>
     
 
@@ -2017,7 +2105,7 @@ in their local storage and can be retrieved by other modules here for any purpos
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="saito_wallet.js.html">saito/wallet.js</a>, <a href="saito_wallet.js.html#line890">line 890</a>
+        <a href="saito_wallet.js.html">saito/wallet.js</a>, <a href="saito_wallet.js.html#line1010">line 1010</a>
     </li></ul></dd>
     
 
@@ -2270,7 +2358,7 @@ sender. Will not send if similar payment was found after the given timestamp.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="saito_wallet.js.html">saito/wallet.js</a>, <a href="saito_wallet.js.html#line1442">line 1442</a>
+        <a href="saito_wallet.js.html">saito/wallet.js</a>, <a href="saito_wallet.js.html#line1500">line 1500</a>
     </li></ul></dd>
     
 
@@ -2407,7 +2495,7 @@ sender. Will not send if similar payment was found after the given timestamp.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="saito_wallet.js.html">saito/wallet.js</a>, <a href="saito_wallet.js.html#line1354">line 1354</a>
+        <a href="saito_wallet.js.html">saito/wallet.js</a>, <a href="saito_wallet.js.html#line1391">line 1391</a>
     </li></ul></dd>
     
 
@@ -2545,7 +2633,7 @@ key exchange, encrypt the message part of message, attach it to the transaction,
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="saito_wallet.js.html">saito/wallet.js</a>, <a href="saito_wallet.js.html#line908">line 908</a>
+        <a href="saito_wallet.js.html">saito/wallet.js</a>, <a href="saito_wallet.js.html#line1028">line 1028</a>
     </li></ul></dd>
     
 
@@ -2651,7 +2739,7 @@ key exchange, encrypt the message part of message, attach it to the transaction,
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="saito_wallet.js.html">saito/wallet.js</a>, <a href="saito_wallet.js.html#line898">line 898</a>
+        <a href="saito_wallet.js.html">saito/wallet.js</a>, <a href="saito_wallet.js.html#line1018">line 1018</a>
     </li></ul></dd>
     
 
@@ -2788,7 +2876,7 @@ key exchange, encrypt the message part of message, attach it to the transaction,
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="saito_wallet.js.html">saito/wallet.js</a>, <a href="saito_wallet.js.html#line946">line 946</a>
+        <a href="saito_wallet.js.html">saito/wallet.js</a>, <a href="saito_wallet.js.html#line1066">line 1066</a>
     </li></ul></dd>
     
 
@@ -2858,7 +2946,7 @@ key exchange, encrypt the message part of message, attach it to the transaction,
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Wed May 12 2021 12:26:06 GMT+0000 (Coordinated Universal Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Fri Sep 03 2021 21:19:13 GMT+0000 (Coordinated Universal Time)
 </footer>
 
 <script> prettyPrint(); </script>

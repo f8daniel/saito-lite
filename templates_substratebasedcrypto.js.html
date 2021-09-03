@@ -26,8 +26,7 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>//const ModTemplate = require('./modtemplate');
-const AbstractCryptoModule = require('./abstractcryptomodule')
+            <pre class="prettyprint source linenums"><code>const AbstractCryptoModule = require('./abstractcryptomodule')
 const { Keyring, decodeAddress, encodeAddress, createPair } = require('@polkadot/keyring');
 const { ApiPromise, WsProvider } = require('@polkadot/api');
 const { randomBytes } = require('crypto');
@@ -75,7 +74,8 @@ class SubstrateBasedCrypto extends AbstractCryptoModule {
   */
   
   installModule(app) {
-    app.wallet.setPreferredCrypto(this.ticker);
+    // disable for now
+    //app.wallet.setPreferredCrypto(this.ticker);
   }
  /**
   * Initialize Endpoint API connection and keyring
@@ -131,10 +131,6 @@ class SubstrateBasedCrypto extends AbstractCryptoModule {
   fromFormatedAmount(amount) {
 
   }
-  // existential deposit (ED) to prevent dust accounts from bloating state. If an account drops below the ED, it will be reaped,
-  // Polkadot's ED is 1 DOT, while Kusama's is 0.0016666 KSM.
-
-  
   /**
    * Forces input address into the desired format.
    * Input address can be any format, DOT, KSM, or Substrate.
@@ -155,29 +151,51 @@ class SubstrateBasedCrypto extends AbstractCryptoModule {
     return encodeAddress(decodeAddress(address), formats[format]);
   }
  /**
-  * async getter for Endpoint API
-  * @param {Object} app - Saito Application Context
+  * overrides AbstractCryptoModule returnAddress
   */
   returnAddress() {
     if (this.ticker == "KSM") {
       return this.getFormattedAddress(this.keypair.address, "kusama");
-    } else if (this.ticker == "WESTIE") {
+    } else if (this.ticker == "WND") {
       return this.getFormattedAddress(this.keypair.address, "substrateRaw");
     } else {
       return this.getFormattedAddress(this.keypair.address);
     }
   }
+ /**
+  * overrides AbstractCryptoModule returnPrivateKey
+  */
+  returnPrivateKey() {
+    return "Please remind your module developer to implement this";
+    // return this.keypair.something?
+  }
+ /**
+  * overrides AbstractCryptoModule returnBalance
+  */
   async returnBalance(){
     let api = await this.getApi();
-    const { nonce, data: balance } = await api.query.system.account(this.keypair.publicKey);
-    if (this.ticker == "WESTIE") {
-      return balance.free/1000000000000;
-    } else {
-      return balance.free;
+    let balance = 0.0;
+    if(api.query.system.account) {
+      const { nonce, data: balanceObj } = await api.query.system.account(this.keypair.publicKey);
+      balance = balanceObj.free;
+    } else if(api.query.balances.freeBalance) {
+      balance = api.query.balances.freeBalance(this.keypair.publicKey);
     }
+    if (this.ticker == "WND") {
+      return balance/1000000000000.0;
+    } else {
+      return balance/1.0;
+    }
+    return balance
   }
+ /**
+  * overrides AbstractCryptoModule transfer.
+  * 
+  * Substrate-based coins have existential deposit (ED) to prevent dust accounts from bloating state. If an account drops below the ED, it will be reaped,
+  * Polkadot's ED is 1 DOT, while Kusama's is 0.0016666 KSM.
+  */
   async transfer(howMuch, to) {
-    if (this.ticker == "WESTIE") {
+    if (this.ticker == "WND") {
       howMuch = howMuch*1000000000000;
     }
     let api = await this.getApi();
@@ -185,14 +203,17 @@ class SubstrateBasedCrypto extends AbstractCryptoModule {
     const hash = await tx.signAndSend(this.keypair);
     return hash;
   }
-  // Only looks in the last 100 payments due to a restriction on subscan's API. This could be extended by repeating the request for past pages.
+ /**
+  * overrides AbstractCryptoModule hasPayment
+  *
+  * Only looks in the last 100 payments due to a restriction on subscan's API. This could be extended by repeating the request for past pages.
+  */
   hasPayment(howMuch, from, to, timestamp) {
-    console.log("hasPayment " + howMuch + " - " + from + " - " + to + " - " + timestamp);
     return new Promise((resolve, reject) => {
       let data = {
         "row": 100,
         "page": 0,
-        "address": "5E4M84Vwnxgx1vZ3TURvjSqbxFsMF9cD8vKs3aWohJXgJYgy"
+        "address": from
       }
       fetch(this.subscanEndpoint + "/api/scan/transfers", {
           method: 'POST',
@@ -205,13 +226,31 @@ class SubstrateBasedCrypto extends AbstractCryptoModule {
         })
         .then(response => response.json())
         .then((data) => {
-          console.log(data);
           for(let i = 0; i &lt; data.data.transfers.length; i++) {
+            
             let transfer = data.data.transfers[i];
-            if(transfer.from == from &amp;&amp; transfer.to == to &amp;&amp; Number.parseFloat(transfer.amount) >= howMuch &amp;&amp; transfer.block_timestamp > timestamp) {
-              // TODO: format this transfer into a standard format for all crypto modules...
-              console.log("TRANSACTION FOUND!!!");
-              console.log(transfer);
+            // DEBUG
+            // if(i === 0){
+            //   console.log(transfer.from);
+            //   console.log(from);
+            //   console.log(transfer.from == from);
+            // 
+            //   console.log(transfer.to);
+            //   console.log(to);
+            //   console.log(transfer.to == to);
+            // 
+            //   console.log(transfer.amount);
+            //   console.log(howMuch);
+            //   console.log(Number.parseFloat(transfer.amount) >= howMuch);
+            // 
+            //   console.log(transfer.block_timestamp);
+            //   console.log(timestamp);
+            //   console.log(parseInt(transfer.block_timestamp));
+            //   console.log(parseInt(timestamp));
+            //   console.log(1000*transfer.block_timestamp > timestamp);
+            //   console.log(1000*parseInt(transfer.block_timestamp) > parseInt(timestamp));
+            // }
+            if(transfer.from == from &amp;&amp; transfer.to == to &amp;&amp; Number.parseFloat(transfer.amount) >= 0.99*howMuch &amp;&amp; 1000*parseInt(transfer.block_timestamp) > parseInt(timestamp)) {
               resolve(true);
               break;
             }
@@ -222,30 +261,19 @@ class SubstrateBasedCrypto extends AbstractCryptoModule {
           console.log("Error fetching payments from subscan");
           reject(err);
         });
-      
-      // curl -X POST 'https://westend.api.subscan.io/api/scan/transfers' --header 'Content-Type: application/json' --header 'X-API-Key: 014bc513cb936da437a7710d67f27cc7' --data-raw '{
-      //     "row": 100,
-      //     "page": 1,
-      //     "address": "5E4M84Vwnxgx1vZ3TURvjSqbxFsMF9cD8vKs3aWohJXgJYgy"
-      //   }'
-        // curl -X POST 'http://kaolinite/subscanapi/api/scan/transfers' --header 'Content-Type: application/json' --header 'X-API-Key: 014bc513cb936da437a7710d67f27cc7' --data-raw '{
-        //     "row": 10,
-        //     "page": 1,
-        //     "address": "5E4M84Vwnxgx1vZ3TURvjSqbxFsMF9cD8vKs3aWohJXgJYgy"
-        //   }'
-      //   curl -X POST 'https://saito.io:9931/subscanapi/api/scan/transfers' --header 'Content-Type: application/json' --header 'X-API-Key: 014bc513cb936da437a7710d67f27cc7' --data-raw '{
-      //       "row": 100,
-      //       "page": 0,
-      //       "address": "5E4M84Vwnxgx1vZ3TURvjSqbxFsMF9cD8vKs3aWohJXgJYgy"
-      //     }'
-      // 
     });
   }
+ /**
+  * save state of this module to local storage
+  */
   save() {
     let moduleOptions = this.app.storage.getModuleOptionsByName(this.name);
     moduleOptions.storage = this.optionsStorage;
     this.app.storage.saveOptions();
   }
+ /**
+  * load state of this module from local storage
+  */
   load() {
     let moduleOptions = this.app.storage.getModuleOptionsByName(this.name);
     if(moduleOptions) {
@@ -276,7 +304,7 @@ module.exports = SubstrateBasedCrypto;
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Wed May 12 2021 12:26:06 GMT+0000 (Coordinated Universal Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Fri Sep 03 2021 21:19:13 GMT+0000 (Coordinated Universal Time)
 </footer>
 
 <script> prettyPrint(); </script>
