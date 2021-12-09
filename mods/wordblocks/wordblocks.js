@@ -119,9 +119,7 @@ class Wordblocks extends GameTemplate {
       }
     });
 
-    //toggleLog causes an error because game-log is not robust 
-    //Do we even need this? What does GameLog do?
-    /*this.menu.addSubMenuOption("game-game", {
+    this.menu.addSubMenuOption("game-game", {
       text : "Log",
       id : "game-log",
       class : "game-log",
@@ -129,7 +127,7 @@ class Wordblocks extends GameTemplate {
         game_mod.menu.hideSubMenus();
         game_mod.log.toggleLog();
       }
-    });*/
+    });
     this.menu.addSubMenuOption("game-game", {
       text : "Stats",
       id : "game-stats",
@@ -219,6 +217,8 @@ class Wordblocks extends GameTemplate {
     this.menu.attachEvents(app, this);
 
     this.hud.render(app, this);
+    this.log.render(app, this);
+    this.log.attachEvents(app, this);
 
     try {
 
@@ -762,7 +762,7 @@ class Wordblocks extends GameTemplate {
               <span class="action" id="cancel"><i class="far fa-window-close"></i> Cancel</span>
             </div>`;
 
-            $('body').append(html);
+            $('#gameboard').append(html);
             $('.tile-placement-controls').addClass("active-status");
             $('.tile-placement-controls').css({ "position": "absolute", "top":"40vh", "right": "1em" });
 
@@ -1121,6 +1121,7 @@ tryPlayingWord(x,y,orientation,word){
       } else {
         
         this.game.words_played[parseInt(this.game.player)-1].push({ word : fullword , score : myscore });
+        this.updateLog(`You played ${word} for ${myscore} points.`);
         this.addMove("place\t" + word + "\t" + this.game.player + "\t" + x + "\t" + y + "\t" + orientation);
         //
         // discard tiles
@@ -1646,7 +1647,7 @@ discardAndDrawTiles(tiles){
         thisword += thisletter;
         score += this.letters[thisletter].score * letter_bonus;
         if (letter_bonus>1){
-          html += ` + ${this.letters[thisletter].score} x${letter_bonus}`;
+          html += ` + ${this.letters[thisletter].score} x ${letter_bonus}`;
         }else{
           html += " + "+this.letters[thisletter].score;
         }
@@ -1849,7 +1850,7 @@ discardAndDrawTiles(tiles){
           this.addScoreToPlayer(player, score);
 
 	        this.game.words_played[parseInt(player)-1].push({ word : word , score : score });
-
+          this.updateLog(`Player ${player} played ${word} for ${score} points`);
         } 
 
         if (wordblocks_self.game.over == 1) {
@@ -1871,6 +1872,7 @@ discardAndDrawTiles(tiles){
         return 1; // remove word and wait for next
       }
 
+      /*Discard tiles*/
       if (mv[0] === "turn") {
         //
 	      // observer mode
@@ -1881,13 +1883,20 @@ discardAndDrawTiles(tiles){
 	         return 1;
 	       }
 
-
           if (wordblocks_self.checkForEndGame() == 1) {
             return;
           }
 
           let player = mv[1];
           let discardedTiles = mv[2];
+         
+          if (player != this.game.player){ //string - int comparison
+            this.updateLog(`Player ${player} discarded some tiles.`);  
+          }else{
+            this.updateLog(`You discarded some tiles.`);  
+          }
+          
+
           //Code to keep the discard and redraws in the game log history
           wordblocks_self.last_played_word = { player, word: discardedTiles, score:0};
           wordblocks_self.game.words_played[parseInt(player)-1].push({ word : "---" , score : 0 });

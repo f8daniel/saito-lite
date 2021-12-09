@@ -9,6 +9,8 @@ body {
   padding: 0px;
   margin: 0px;
   background-color: #024;
+  background:  url("img/background.png");
+  background-size: cover;
   overflow-x: hidden;
   overflow-y: auto;
   scrollbar-face-color: #868686;
@@ -81,9 +83,10 @@ thead,  tfoot{
   grid-template-columns: repeat(15, 15fr);
   grid-template-rows: repeat(15, 15fr);
   grid-gap: 3px;
-  background: #999;
-  border: 10px solid #333;
-  padding: 10px;
+  background: rgb(230,204,179);
+  border: 10px solid rgb(43,29,14);
+  border-radius: 2vw;
+  padding: 12.5px;
   max-width: 900px;
   max-height: 900px;
   width: 99vw;
@@ -151,20 +154,24 @@ thead,  tfoot{
 
 /* Player Tile Rack*/
 .tiles div.tile {
-  width: 65px;
-  height: 60px;
+  width: 58px;
+  height: 58px;
   display: inline-block;
   text-align: center;
   font-weight: bold;
   margin: 5px;
-  border-width: 4px;
+ /* border-width: 4px;
   border-style: solid;
   border-color: rgb(221, 221, 221);
   border-image: initial;
-  padding: 10px 0 6px 0;
   background: rgb(70, 70, 70);
+  color: #efefec;*/
+  background-image: url("img/empty_tile.png");
+  background-size: cover;
+  color: rgb(43,29,14);
+  padding: 10px 0 6px 0;
   font-size: 36px;
-  color: #efefec;
+  
 }
 
 /*.tiles .tile.O {
@@ -180,8 +187,10 @@ thead,  tfoot{
 .slot {
   cursor: pointer;
   display: flex;
-  background: rgb(102, 102, 102);
-  border: 3px solid rgb(102, 102, 102);
+  /*background: rgb(102, 102, 102);
+  border: 3px solid rgb(102, 102, 102);*/
+  background-image: url("img/slot2.png");
+  background-size: contain;
   border-image: initial;
   border-radius: 5px;
   overflow: hidden;
@@ -189,15 +198,21 @@ thead,  tfoot{
   align-self: center;
   width: 54px;
   height: 54px;
+  font-family: "visuelt-light", "Microsoft Yahei", "Hiragino Sans GB", sans-serif;
 }
 
 .slot div.tile {
-  color: rgb(238, 238, 238);
+  color: rgb(43,29,14);
   font-size: 2rem;
   background-color: rgba(68, 68, 68, 0.85);
+  background-image: url("img/empty_tile.png");
+  background-size: cover;
   text-align: center;
   padding-top: 6px;
-  border-radius: 3px;
+  border-radius: 5px;
+  height: 50px;
+  width: 50px;
+  margin: auto;
 }
 
 .slot:hover {
@@ -216,81 +231,53 @@ thead,  tfoot{
   color: rgb(238, 238, 238);
   text-align: center;
   height: 100%;
-  margin: auto;
-  padding:  5px 0px;
+  width: 100%;
+  padding: 10px 2px;
+  line-height: 15px;
+  font-weight: bolder;
 }
 
-.tw {
-  border: 2px solid rgb(221, 70, 0);
-  background: rgb(221, 102, 0);
+.tw, .twbk {
+  border: 1px solid rgb(133, 20, 0);
+  background-color: rgba(159, 24, 0, 0.8);
 }
 
-.twbk {
-  /*color: rgb(238, 238, 238);
-  text-align: center;
-  height: 100%;
-  margin: auto;
-  padding: 9px 0px;*/
+
+.dw, .dwbk {
+  border: 1px solid rgb(221, 70, 0);
+  background: rgba(221, 102, 0, 0.8);
 }
 
-.dw {
-  border-color: /*2px solid*/ rgb(207, 31, 0);
-  background-color: rgb(184, 28, 0);
+
+.tl, .tlbk {
+  border: 1px solid rgb(54,0,108);
+  background-color: rgba(0, 64, 128, 0.8);
 }
 
-.dwbk {
-  /*color: rgb(238, 238, 238);
-  text-align: center;
-  height: 100%;
-  margin: auto;
-  padding: 9px 0px;*/
+
+.dl, .dlbk {
+  border: 1px solid rgb(0,103,51);
+  background-color: rgba(0, 128, 64,0.8);
 }
 
-.tl {
-  border-color: /*2px solid*/ #114477;
-  background-color: rgb(0, 51, 102);
+
+.star, .starbk {
+  border: 1px solid #888822;
+  background-color: rgba(187, 187, 102,0.8);
 }
 
-.tlbk {
-  /*color: rgb(238, 238, 238);
-  text-align: center;
-  height: 100%;
-  margin: auto;
-  padding: 9px 0px;*/
-}
-
-.dl {
-  border-color: /*2px solid*/ #117744;
-  background-color: rgb(0, 102, 51);
-}
-
-.dlbk {
-  /*color: rgb(238, 238, 238);
-  text-align: center;
-  height: 100%;
-  margin: auto;
-  padding: 9px 0px;*/
-}
-
-.star {
-  border-color: /*2px solid*/ #888822;
-  background-color: rgb(187, 187, 102);
-}
-
-.starbk {
+.bonus.starbk {
   font-size: 36px !important;
   color: rgb(51, 51, 51);
   text-align: center;
   height: 100%;
   width: 100%;
   margin: auto;
-  /*padding: 6px 0px;*/
+  padding: 18px 0;
 }
 
-.star .starbk{
-  color: rgb(51, 51, 51);
-  padding: 0px;
-}
+
+
 .tile::after {
   vertical-align: sub;
   font-size: 33%;
@@ -579,10 +566,13 @@ thead,  tfoot{
   max-height: initial;
   height: fit-content;
   height: -moz-fit-content;
-  background: rgb(68, 68, 68);
+  /*background: rgb(68, 68, 68);
   border: 1px solid rgb(136, 136, 136);
-  color: rgb(239, 239, 239);
-  border: 1px solid #888;
+  color: rgb(239, 239, 239);*/
+  background: rgb(43,29,14);
+  border: 2px solid rgb(230,206,180);
+  border-radius: 5px;
+  color: rgb(250,244,239);
 }
 
 .hud-body {
@@ -657,46 +647,28 @@ thead,  tfoot{
     border: 0.5em solid #333;
     padding: 0.5em;
   }
+
   .slot {
-    cursor: pointer;
-    display: flex;
-    background: rgb(102, 102, 102);
-    border-style: solid;
-    border-color: rgb(102, 102, 102);
-    border-image: initial;
     border-radius: 0.3em;
-    overflow: hidden;
     width: 6vw;
     height: 6vw;
-    justify-self: center;
-    align-self: center;
   }
   .slot div {
     font-size: 1.2vw;
     padding: 0.5vw 0;
   }
-  .tlbk {
-    padding: 3px 0px;
-    text-align: center;
+ 
+  .slot .bonus{
+    padding: 7px 0px;
   }
-  .dlbk {
-    padding: 3px 0px;
-    text-align: center;
-  }
-  .twbk {
-    padding: 3px 0px;
-    text-align: center;
-  }
-  .dwbk {
-    padding: 3px 0px;
-    text-align: center;
-  }
+
   .rack {
     width: auto;
     clear: left;
   }
-  .starbk {
-    padding: 1px 0px;
+  
+  .bonus.starbk {
+    padding: 2px 0px;
     font-size: 3.2vw !important;
   }
   .slot div.tile {
@@ -738,11 +710,11 @@ thead,  tfoot{
     text-indent: 0px;
     font-weight: bold;
     margin: 3px;
-    border-width: 2px;
+    /*border-width: 2px;
     border-style: solid;
     border-color: rgb(221, 221, 221);
     border-image: initial;
-    background: rgb(70, 70, 70);
+    background: rgb(70, 70, 70);*/
     font-size: 7vw;
     width: 12vw;
     height: 12vw;
@@ -763,8 +735,8 @@ thead,  tfoot{
 
 /* Highlight selected tile in rack*/
 .tiles .tile.highlighttile{
-  color: limegreen;
-  border-color: limegreen;
+  color: rgb(250,244,239);
+  border-color: rgb(250,244,239);
 }
 
 /* Highlight temporary tiles on board*/
@@ -785,7 +757,10 @@ thead,  tfoot{
   pointer-events: none;
   width: 54px;
   height: 54px;
-  background-color: limegreen;
+  /*background-color: limegreen;*/
+  background-image: url("img/empty_tile.png");
+  background-size: cover;
+  color: rgb(43,29,14);
   font-size: 2rem;
   text-align: center;
   padding-top: 6px;
@@ -801,7 +776,8 @@ thead,  tfoot{
 .tiles .tile.todelete{
   position: relative;
   bottom: 10px;
-  background-color: #940404;
+  background-color: rgb(244,6,6);
+  color: rgb(244,6,6);
 }
 
 #promptval{
