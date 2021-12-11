@@ -22,6 +22,64 @@ body {
   scrollbar-shadow-color: #868686;
 }
 
+/*
+  Format Player Boxes for score keeping
+*/
+
+#opponentbox{
+  position: absolute;
+  left: 1em;
+  top: 50vh;
+  transform: translateY(-50%);
+}
+
+.opponents > .player-box{
+  position: unset;
+  height: fit-content;
+  background-color: rgba(43,29,14,0.5);
+  margin: 0.5em;
+  border: 2px solid transparent;
+  border-radius: 18px;
+  box-shadow: -5px 3px 4px black;
+}
+
+.opponents > .player-box.active{
+  border-color: silver;
+}
+
+/* Nicely displaying scores in playerboxes */
+.opponents .player-box-info, .lastmove{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.playedword{
+  text-transform: uppercase;
+  color: #3df71f;
+  text-decoration: underline dotted;
+}
+
+.wordscore{
+  font-weight: bold;
+
+}
+
+.playerscore{
+  font-weight: bolder;
+  text-shadow: -2px 3px 2px black;
+}
+
+.discardedtiles{
+  text-transform: uppercase;
+  color: var(--saito-red);
+}
+
+.player-info-name{
+  font-size: 2.5vh;
+}
+
 .stats-overlay {
   min-width: 220px;
   min-height: 200px;
@@ -105,33 +163,12 @@ thead,  tfoot{
   text-align: center;
 }
 
-#remainder {
-  font-size: 25px;
-  padding: 10px 0;
-}
 
 #lastmove {
-  clear: both;
-  height: 30px;
   cursor: pointer;
 }
 
-.home {
-  display: inline-block;
-  font-size: 20px;
-  margin-left: 10px;
-}
 
-.home>a>i {
-  color: #fff;
-}
-
-.score {
-  font-size: 1.6rem;
-  display: grid;
-  align-content: center;
-  padding: 0 30px;
-}
 
 .rack {
   align-self: center;
@@ -159,7 +196,7 @@ thead,  tfoot{
   display: inline-block;
   text-align: center;
   font-weight: bold;
-  margin: 5px;
+  margin: 9px;
  /* border-width: 4px;
   border-style: solid;
   border-color: rgb(221, 221, 221);
@@ -192,7 +229,7 @@ thead,  tfoot{
   background-image: url("img/slot2.png");
   background-size: contain;
   border-image: initial;
-  border-radius: 5px;
+  border-radius: 0.3em;
   overflow: hidden;
   justify-self: center;
   align-self: center;
@@ -209,10 +246,11 @@ thead,  tfoot{
   background-size: cover;
   text-align: center;
   padding-top: 6px;
-  border-radius: 5px;
+  border-radius: 0.3em;
   height: 50px;
   width: 50px;
   margin: auto;
+  font-weight: bolder;
 }
 
 .slot:hover {
@@ -332,206 +370,13 @@ thead,  tfoot{
   display: block;
 }
 
-.player .player-identicon{
-    width: 80%;
-    box-shadow: 0px 3px 6px #00000029;
-}
-
-.player {
-  margin: 0.125em 0 0.75em;
-  white-space: nowrap;
-  display: grid;
-  grid-template-columns: 7% 82% 10%;
-  height: 1.5em;
-}
-
-.player_name {
-  overflow: hidden;
-  display: inline-block;
-  text-overflow: ellipsis;
-  text-align: left;
-  /* width: 85%; */
-}
-
-.player span {
-  line-height: 1.5em;
-}
-
-.player_score {
-  justify-self: right;
-}
-
-/*
-.hud {
-  display: grid;
-  grid-template-rows: 40px auto;
-  grid-template-columns: 100px auto;
-  grid-template-areas: "hud-header hud-header" "hud-body hud-body";
-  font-family: "visuelt-light", "Microsoft Yahei", "Hiragino Sans GB";
-  position: fixed;
-  left: 10vw;
-  bottom: 0%;
-  float: none;
-  z-index: 40;
-  height: unset;
-  width: unset;
-  max-width: 760px;
-  max-height: 260px;
-  border-bottom: 0px;
-  transition: height 0.2s ease;
-}
-
-.hud-hidden {
-  height: 40px;
-}
-*/
-
-/** HUD HEADER **/
-
-/*
-.hud-header {
-  grid-area: hud-header;
-  display: grid;
-  grid-template-columns: 100px auto;
-  width: 100%;
-  height: 40px;
-  cursor: move;
-}
-
-.controls {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 10px;
-}
-
-.hud-button {
-  cursor: pointer;
-}
-
-/** HUD BODY **/
-
-/*
-.hud-body {
-  grid-area: hud-body;
-  display: grid;
-  grid-template-columns: auto 200px;
-  height: 100%;
-}
-
-.hud-menu {
-  grid-area: hud-menu;
-  border-right: 1px solid var(--saito-skyline-grey);
-  display: none;
-}
-*/
 
 .status {
   width: unset !important;
 }
 
-.status ul {
-  list-style: none;
-}
 
-.status ul li {
-  line-height: 2em;
-}
 
-.status ul li:last-child {}
-
-.status ul li:hover {}
-
-/** HUD SIDEBAR **/
-
-.hud-menu {
-  display: none;
-}
-
-.hud-menu ul {
-  width: 100%;
-  list-style: none;
-  text-align: center;
-  padding: 0;
-  margin: 0;
-}
-
-.hud-menu ul li {
-  list-style: none;
-  text-align: center;
-  padding: 0;
-  margin: 0;
-  width: 100%;
-  border-bottom: none;
-  height: 50px;
-  line-height: 50px;
-  font-size: 1.1rem;
-  cursor: pointer;
-}
-
-.hud-menu ul li a {
-  text-decoration: none;
-  display: block;
-  color: black;
-  transition: .3s background-color;
-  font-size: 22px;
-}
-
-.hud-menu ul li a:hover {
-  border-bottom: 2px solid var(--saito-red);
-  border-radius: 0px;
-}
-
-.hud-menu ul li a:active {
-  color: var(--saito-red);
-  font-style: bold;
-}
-
-/* hud */
-
-/*
-.hud div {
-  background: #333;
-  color: var(--saito-skyline-grey);
-}
-
-.hud-button {
-  color: var(--saito-skyline-grey);
-  margin: auto;
-  font-size: 24px;
-}
-
-.status {
-  padding: 1em;
-  overflow-y: auto;
-  overflow-x: hidden;
-  border: none;
-}
-
-.hud-body .log {
-  display: none;
-}
-
-.hud-body {
-  grid-template-columns: auto;
-}
-
-.hud-header {
-  border-bottom: 1px solid #555;
-}
-
-.hud-menu {
-  border-right: 1px solid #555;
-}
-*/
-
-/**
-.status div {
-  font-size: 24px;
-  overflow-wrap: break-word;
-  max-width: 95vw;
-}
-**/
 
 
 .rack {
@@ -543,9 +388,6 @@ thead,  tfoot{
   align-items: center;
 }
 
-.tile-placement-controls {
-  display: grid;
-}
 
 .action {
   justify-self: center;
@@ -555,8 +397,6 @@ thead,  tfoot{
 }
 
 .shuffle {
-  height: 3em;
-  width: 3em;
   cursor: pointer;
 }
 
@@ -576,6 +416,7 @@ thead,  tfoot{
 }
 
 .hud-body {
+  min-height: fit-content;
   height: fit-content;
   height: -moz-fit-content;
   overflow-y: visible;
@@ -588,8 +429,8 @@ thead,  tfoot{
   background: linear-gradient( 45deg, black, #999);
 }
 
-.hud-status-update-message {
-  margin: 10px auto;
+.hud-status-update-message, .subrack {
+  margin: 0.6em auto;
 }
 
 .rack-controls {
@@ -597,18 +438,12 @@ thead,  tfoot{
   justify-content: space-around;
 }
 
-@media only screen and (max-width: 750px) and (orientation: portrait) {
-  .hud-status-update-message {
+/*Rearrange HUD/Playerbox elements for portrait layout  */
+@media  (orientation: portrait){
+  .hud-status-update-message, .subrack {
     font-size: 0.8em;
   }
-  #remainder {
-    font-size: 1em;
-    width: unset;
-    padding-top: 0.75em;
-    padding-left: 1em;
-    float: right;
-    margin-right: 1.4em;
-  }
+  
   .hud {
     font-size: 22px;
     width: 100vw;
@@ -632,95 +467,84 @@ thead,  tfoot{
     height: fit-content;
     height: -moz-fit-content;
   }
-  .tiles {
+
+    .tiles {
+    width: auto;
+  }
+  .tiles div.tile {
+    font-weight: bold;
+    margin: 0 1vw;
+    font-size: min(7vw,45px);
+    width: 72px;
+    height: 72px;
+    max-width: 11vw;
+    max-height: 11vw;
+    padding: min(2vw,12px);
+  }
+
+  #opponentbox{
+    top: 45px;
+    left: 0;
+    display: flex;
+    flex-direction: row;
     width: 100%;
+    justify-content: space-evenly;
   }
-  #lastmove {
-    font-size: 0.7em;
+
+  .opponents > .player-box{
+    width: 20vh;
+    max-width: 23vw;
+    padding: 0.25em;
+    margin: 0;
+    border-radius: 12px;
+    box-shadow: -4px 2px 3px black;
+    font-size: 15px;
   }
+
+  .player-info-name{
+    font-size: 2vh;
+  }
+
+  .player-box .plog, .player-box .player-box-info{
+    margin: 0.25em;
+  }
+}
+
+/*
+Resize board on smaller screens
+*/
+@media only screen and (max-width: 910px) {
   .gameboard {
-    display: grid;
-    grid-template-columns: repeat(15, 15fr);
-    grid-template-rows: repeat(15, 15fr);
-    grid-gap: 1px;
-    background: #999;
-    border: 0.5em solid #333;
-    padding: 0.5em;
+    grid-gap: 2px;
+    border-width: 5px;
+    padding: 6px;
   }
 
   .slot {
-    border-radius: 0.3em;
     width: 6vw;
     height: 6vw;
   }
   .slot div {
-    font-size: 1.2vw;
+    font-size: 1.5vw;
     padding: 0.5vw 0;
   }
  
   .slot .bonus{
-    padding: 7px 0px;
-  }
-
-  .rack {
-    width: auto;
-    clear: left;
+    padding: 2px 1px;
   }
   
   .bonus.starbk {
-    padding: 2px 0px;
+    padding: 10px 0px;
     font-size: 3.2vw !important;
   }
   .slot div.tile {
-    color: rgb(238, 238, 238);
     font-size: 4vw;
-    background-color: rgb(68, 68, 68);
-    padding-top: 0.4vw;
-    border-radius: 2px;
     text-indent: 2px;
   }
-  .status {
-    margin: 0;
-    grid-gap: 0.5em;
-    padding: 4px;
-    padding-top: 6px;
-  }
-  .status_container {
-    grid-template-rows: 1em auto;
-    margin: 12px 0 0 0;
-  }
-  .score {
-    font-size: 1rem;
-  }
-  .player {
-    width: calc(100vw - 2em) !important;
-    line-height: 1em;
-    height: 3vh;
-  }
-  .tiles {
-    display: inline-block;
-    width: auto;
-    float: left;
-    position: relative;
-  }
-  .tiles div.tile {
-    display: inline-block;
-    text-align: center;
-    line-height: 0.9em;
-    text-indent: 0px;
-    font-weight: bold;
-    margin: 3px;
-    /*border-width: 2px;
-    border-style: solid;
-    border-color: rgb(221, 221, 221);
-    border-image: initial;
-    background: rgb(70, 70, 70);*/
-    font-size: 7vw;
-    width: 12vw;
-    height: 12vw;
-    padding: 2vw;
-  }
+
+
 }
+/* End of responsive layout */
 
 .hidden{
   display: none;
